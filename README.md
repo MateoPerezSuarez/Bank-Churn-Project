@@ -4,7 +4,7 @@ The attributes analyzed by this study is splitted into the different columns, wh
 
 QUANTITATIVE VARIABLES: 
 Customer identification: a unique id for each customer.
-Age: Customer’s age
+Age: Customer’s age.
 Credit Score: A value between 300 and 850 which expresses the level of probability of a customer to pay off the debt to the bank.
 Tenure: Number of years a customer has been a client of the bank.
 Account Balance: Customer account balance.
