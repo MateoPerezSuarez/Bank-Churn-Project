@@ -29,7 +29,5 @@ age_predicted = model.predict(missing_Value)
 print(age_predicted[0])
 data.loc[data['Age'].isna(), 'Age'] = age_predicted[0]
 
-
-
-
+#print(data.describe())
 
