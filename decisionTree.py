@@ -37,8 +37,7 @@ conf_matrix = confusion_matrix(y_test, y_pred)
 class_report = classification_report(y_test, y_pred)
 
 #results
-print(f'Accuracy: {accuracy:.2f}')
-print('Confusion Matrix:')
-print(conf_matrix)
-print('Classification Report:')
-print(class_report)
+print('Accuracy: ' + str(accuracy))
+print('Confusion Matrix:\n' + str(conf_matrix))
+print('Classification Report:\n' + str(class_report))
+
