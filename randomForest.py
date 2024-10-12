@@ -25,7 +25,9 @@ X = pd.get_dummies(X, columns=categoric_cols, drop_first=True)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 #random forest training
+
 model = RandomForestClassifier(random_state=42)
+
 model.fit(X_train, y_train)
 
 #predictions

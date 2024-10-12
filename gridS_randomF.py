@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-#busqueda de hiperparametros
+from sklearn.ensemble import RandomForestClassifier
+
 # Load data
 data = pd.read_csv('Churn_Modelling.csv')
 
@@ -12,53 +12,51 @@ categoric_cols = ['Geography', 'Gender']
 
 # Remove rows with missing values in key columns
 data_clean = data.dropna(subset=numeric_cols + categoric_cols + ['Exited'])
+
+# Feature selection
 X = data_clean[numeric_cols + categoric_cols]
 y = data_clean['Exited']
 
-# One-hot encoding for categorical variables
+# Convert categorical variables to dummy/one-hot encoding
 X = pd.get_dummies(X, columns=categoric_cols, drop_first=True)
 
-# Train-test split
+# Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Define parameter grid for GridSearchCV
+# Define the RandomForestClassifier model
+model = RandomForestClassifier(random_state=42)
+
+# Set the hyperparameter grid for RandomForestClassifier
 param_grid = {
-    'n_estimators': [200, 300],
-    'max_depth': [10, 15, 20],
-    'max_features': ['sqrt'],
-    'min_samples_split': [2, 5],
-    'min_samples_leaf': [1, 2]
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 10, 20, 30],
+    'max_features': ['sqrt', 'log2'],
+    'class_weight': ['balanced', 'balanced_subsample']
 }
 
-# Setup grid search
-grid_search = GridSearchCV(estimator=RandomForestClassifier(random_state=42),
-                           param_grid=param_grid,
-                           cv=5,  # 5-fold cross-validation
-                           scoring='accuracy')
-
-# Train grid search
-#ajustar param grid para evitar que tarde de mas
+# Implement GridSearchCV
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=2)
 grid_search.fit(X_train, y_train)
 
-# Get the best parameters and best score
+# Best hyperparameters found by GridSearchCV
 best_params = grid_search.best_params_
-best_score = grid_search.best_score_
+print(f'Best Parameters: {best_params}')
 
-# Train the model with the best parameters
+# Best score found by GridSearchCV
+best_cv_score = grid_search.best_score_
+print(f'Best Cross-Validation Accuracy: {best_cv_score:.4f}')
+
+# Use the best model to make predictions
 best_model = grid_search.best_estimator_
-
-# Make predictions
 y_pred = best_model.predict(X_test)
 
-# Model evaluation
+# Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
 conf_matrix = confusion_matrix(y_test, y_pred)
 class_report = classification_report(y_test, y_pred)
 
-# Results
-print(f"Best Parameters: {best_params}")
-print(f"Best Cross-Validation Accuracy: {best_score:.2f}")
-print(f'Accuracy: {accuracy:.2f}')
+# Print evaluation results
+print(f'Accuracy: {accuracy:.4f}')
 print('Confusion Matrix:')
 print(conf_matrix)
 print('Classification Report:')
