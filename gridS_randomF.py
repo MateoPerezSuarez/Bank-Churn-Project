@@ -4,11 +4,14 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.ensemble import RandomForestClassifier
 
 # Load data
-data = pd.read_csv('Churn_Modelling.csv')
+data = pd.read_csv('Customer-Churn-Records.csv')
 
 # Define numeric and categorical columns
-numeric_cols = ['CreditScore', 'Balance', 'Tenure', 'NumOfProducts', 'HasCrCard', 'IsActiveMember', 'EstimatedSalary']
-categoric_cols = ['Geography', 'Gender']
+numeric_cols = ['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts',
+    'EstimatedSalary', 'Point Earned']
+categoric_cols = ['CustomerId', 'Surname', 'Geography', 'Gender', 'HasCrCard',
+    'IsActiveMember', 'Exited', 'Complain', 'Satisfaction Score',
+    'Card Type']
 
 # Remove rows with missing values in key columns
 data_clean = data.dropna(subset=numeric_cols + categoric_cols + ['Exited'])
@@ -60,4 +63,4 @@ print(f'Accuracy: {accuracy:.4f}')
 print('Confusion Matrix:')
 print(conf_matrix)
 print('Classification Report:')
-print(class_report)
+print(class_report) 
