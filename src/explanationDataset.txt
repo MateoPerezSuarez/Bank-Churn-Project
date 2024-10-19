@@ -1,0 +1,32 @@
+Raw Dataset:
+
+
+
+
+
+
+
+Cleaned Dataset:
+
+
+    Explanation:
+        As some of the columns are categorical variables, we have decided to factorize them and transform
+        them into dummy variables as it is the proper way to use them for training our models in the future.
+
+        For example Geography column we have decided to convert it to dummy, because at the analysis stage,
+        we found that our dataset only had information from 3 countries, so setting a number to each of them
+        is a good way to prevent issues in our model training stages.
+
+        Same happends with Card Type column which only has 3 card categories.
+
+    Solution:
+        The columns that have been changed are: Gender, Geography and Card Type.
+
+        Gender: Female = 0, Male = 1
+        Geography: France = 0, Spain = 1, Germany = 2
+        Card Type: Diamond = 0, Gold = 1, ....= 2
+        
+    
+
+
+    
