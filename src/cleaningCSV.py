@@ -19,7 +19,9 @@ print(df.head())
 df.to_csv('src/cleanDataset.csv', index = False)
 
 
-
+# import category_encoders as ce
+# encoder = ce.TargetEncoder(cols=['nombre_de_la_variable'])
+# df['nombre_de_la_variable_encoded'] = encoder.fit_transform(df['nombre_de_la_variable'], df['target'])
 
 
 
