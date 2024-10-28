@@ -21,12 +21,7 @@ plt.axis('equal')
 plt.title('Exited percentages')
 plt.show()
 
-'''Results:
-    We have found that aproximatedly 79.6% of our dataset are cases in which the customer has exited, so we have a big imbalanced data.
 
-    BUSCAR SOLUTIONES FUTURAS
-    
-    '''
 
 '''Corre'''
 corr_matrix = df[['CreditScore', 'Age', 'Tenure', 'Balance', 'NumOfProducts', 'EstimatedSalary']].corr()
