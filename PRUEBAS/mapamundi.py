@@ -2,11 +2,12 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-# Cargar el archivo del mapa
 world = gpd.read_file("ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp")
+
 european_countries = [
     'Spain','Germany','France'
 ]
+
 
 europe = world[world['ADMIN'].isin(european_countries)]
 print(europe)
