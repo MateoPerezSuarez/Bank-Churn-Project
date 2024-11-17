@@ -45,7 +45,57 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+'''Correlation Coefficient'''
+corr_matrix = df.corr()
+bestFeatures = corr_matrix.index[abs(corr_matrix['Exited']) >0.1]
+dfFiltered = df[bestFeatures]
+print(dfFiltered)
+
+
+'''Chi-Square'''
+X = df.drop('Exited', axis=1)
+y = df['Exited']
+
+sets = SelectKBest(chi2, k=8)
+X_new = sets.fit_transform(X,y)
+
+selectedCols = X.columns[sets.get_support()]
+print(selectedCols)
+
+'''ANNOVA TEST'''
+fval, pval = f_classif(X,y)
+sets = SelectKBest(score_func=f_classif, k=8)
+ressAnova = pd.DataFrame({'Feature': X.columns, 'F-Value': fval, 'P-Value': pval})
+print(ressAnova.sort_values(by='P-Value'))
+importantFeatures = ressAnova[ressAnova['P-Value'] <0.05]['Feature']
+df_filter = df[importantFeatures]
+
+'''EXPLANATION: 
+        -F-Value is an statistical measure  to compare the variability between groups
+        with the variability within groups. So F-Value = Variation between groups / Variation within groups.
+
+
+        -The P-value explains the probability to obtain an F-value as the one observed if the null hypothesis is true.
+        So the null hypothesis for Annova stablishes that there are no significative differences between groups means.
+
+
+        In our case we obtained that there are 
+'''
+fs = SelectKBest(score_func=f_classif, k=8)
+X_new = fs.fit(X,y)
+
+
+
+
+
+
+
+
+
+>>>>>>> 42401c4 (...d.ad.)
 '''
 print(y.value_counts())
 
@@ -86,22 +136,16 @@ print('Recall: %.2f' % np.mean(recall))
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-
-# Divide los datos para una validación final
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-# Entrena y evalúa el modelo final
 modelLDA.fit(X_train, y_train)
 y_pred = modelLDA.predict(X_test)
-
-# Mostrar métricas de evaluación
 print(classification_report(y_test, y_pred))
 '''
-
-'''OUTLIERS AND NOISY DATA'''
-
+''''''
 
 
+
+<<<<<<< HEAD
 >>>>>>> f8e4345 (PRUEBAS DE FILTER METHODS)
 '''Correlation Coefficient'''
 corr_matrix = df.corr()
@@ -202,9 +246,14 @@ X_new = sets.fit_transform(X,y)
 
 selectedCols = X.columns[sets.get_support()]
 print(selectedCols)
+=======
+
+
+>>>>>>> 42401c4 (...d.ad.)
 
 >>>>>>> f8e4345 (PRUEBAS DE FILTER METHODS)
 
+<<<<<<< HEAD
 '''ANNOVA TEST'''
 fval, pval = f_classif(X,y)
 sets = SelectKBest(score_func=f_classif, k=8)
@@ -222,16 +271,9 @@ print(df_filter)
 '''EXPLANATION: 
         -F-Value is an statistical measure  to compare the variability between groups
         with the variability within groups. So F-Value = Variation between groups / Variation within groups.
+=======
+>>>>>>> 42401c4 (...d.ad.)
 
-
-        -The P-value explains the probability to obtain an F-value as the one observed if the null hypothesis is true.
-        So the null hypothesis for Annova stablishes that there are no significative differences between groups means.
-
-
-        In our case we obtained that there are 
-'''
-fs = SelectKBest(score_func=f_classif, k=8)
-X_new = fs.fit(X,y)
 
 
 <<<<<<< HEAD
