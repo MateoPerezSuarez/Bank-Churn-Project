@@ -3,17 +3,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a1bfc70 (LA LLORONA 1)
+=======
+>>>>>>> FSbranch
 from sklearn.model_selection import cross_val_score, StratifiedKFold, GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> FSbranch
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.metrics import mean_squared_error, accuracy_score, f1_score, roc_auc_score, classification_report, confusion_matrix
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 from sklearn.naive_bayes import GaussianNB
+<<<<<<< HEAD
 =======
 from sklearn.model_selection import cross_val_score, StratifiedKFold, GridSearchCV
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -30,6 +37,8 @@ from sklearn.pipeline import Pipeline
 =======
 from sklearn.naive_bayes import GaussianNB
 >>>>>>> a1bfc70 (LA LLORONA 1)
+=======
+>>>>>>> FSbranch
 
 
 
@@ -55,8 +64,11 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> FSbranch
 '''Correlation Coefficient'''
 corr_matrix = df.corr()
 bestFeatures = corr_matrix.index[abs(corr_matrix['Exited']) >0.1]
@@ -180,6 +192,7 @@ X_new = fs.fit(X,y)
 
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 42401c4 (...d.ad.)
 '''
@@ -375,3 +388,6 @@ print(df_filter)
 
 =======
 >>>>>>> f8e4345 (PRUEBAS DE FILTER METHODS)
+=======
+
+>>>>>>> FSbranch
