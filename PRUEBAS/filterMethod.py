@@ -2,10 +2,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a1bfc70 (LA LLORONA 1)
 from sklearn.model_selection import cross_val_score, StratifiedKFold, GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
+<<<<<<< HEAD
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.metrics import mean_squared_error, accuracy_score, f1_score, roc_auc_score, classification_report, confusion_matrix
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
@@ -14,13 +18,18 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import cross_val_score, StratifiedKFold, GridSearchCV
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.decomposition import PCA
+=======
+>>>>>>> a1bfc70 (LA LLORONA 1)
 from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
+from sklearn.metrics import mean_squared_error, accuracy_score, f1_score, roc_auc_score, classification_report, confusion_matrix
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
+<<<<<<< HEAD
 import seaborn as sns
 from sklearn.pipeline import Pipeline
 >>>>>>> f8e4345 (PRUEBAS DE FILTER METHODS)
+=======
+from sklearn.naive_bayes import GaussianNB
+>>>>>>> a1bfc70 (LA LLORONA 1)
 
 
 
@@ -56,14 +65,87 @@ print(dfFiltered)
 
 
 '''Chi-Square'''
-X = df.drop('Exited', axis=1)
+X = df.drop(['Exited','Complain'], axis=1)
 y = df['Exited']
 
-sets = SelectKBest(chi2, k=8)
-X_new = sets.fit_transform(X,y)
+chiSqSet = SelectKBest(chi2, k=14)
+X_new = chiSqSet.fit_transform(X,y)
 
-selectedCols = X.columns[sets.get_support()]
+selectedCols = X.columns[chiSqSet.get_support()]
 print(selectedCols)
+'''TRAINING WITH CHI-SQUARE'''
+#CON RANDOMFOREST
+'''
+testParam = {
+    'n_estimators': [100,200,300,500],
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': [2,5,10],
+    'min_samples_leaf': [1,2,4],
+    'class_weight':['balanced',None]
+
+}
+X_train, X_test, y_train, y_test = train_test_split(X_new, y, test_size=0.2, random_state=42,stratify=y)
+
+
+
+gridSrc = GridSearchCV(estimator = RandomForestClassifier(random_state=42),param_grid=testParam,cv=5, n_jobs = -1, verbose=1, scoring= 'accuracy')
+
+bestEst = gridSrc.best_estimator_
+bestPar = gridSrc.best_params_
+
+yPred = bestEst.predict(X_test)
+yProba = bestEst.predict_proba(X_test)[:,1]
+
+accuracy = accuracy_score(y_test, yPred)
+roc_auc = roc_auc_score(y_test,yProba)
+report = classification_report(y_test,yPred)
+confMatrix = confusion_matrix(y_test,yPred)
+
+print(f"THE BEST PARAMETERS FOR RANDOM FOREST ARE: {bestPar}")
+'''
+
+
+#CON RANDOMFOREST
+
+selectedFeatures = selectedCols.tolist()
+
+X_train, X_test, y_train, y_test = train_test_split(X_new,y, test_size= 0.2, random_state=42, stratify=y)
+
+model = RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced')
+model.fit(X_train, y_train)
+
+yPred = model.predict(X_test)
+accuracyScore = accuracy_score(y_test, yPred)
+report = classification_report(y_test, yPred)
+
+print("\nRandom Forest RESULTS:")
+print(report)
+print(f'Accuracy_ {accuracyScore}')
+print("-"*60)
+
+scaler = StandardScaler()
+xTrainScaled = scaler.fit_transform(X_train)
+xTestScaled = scaler.fit_transform(X_test)
+
+#LOGISTIC REGRESSION AND NAIVE BAYES
+
+models = {
+    "Naive Bayes": GaussianNB(),
+    "LogisticRegression": LogisticRegression(random_state=42, class_weight='balanced', max_iter=1000),
+    "SVM": svm.SVC(kernel='rbf', probability=True, random_state=42, class_weight='balanced')
+}
+
+for name, model in models.items():
+    print(f"Training: {name}")
+    model.fit(xTrainScaled,y_train)
+    yPred =model.predict(xTestScaled)
+    yProba =model.predict_proba(xTestScaled)[:,1]
+    report  =classification_report(y_test, yPred)
+    roc_auc = roc_auc_score(y_test, yProba)
+    print(f"\nResults of {name}:")
+    print(report)
+    print(f"ROC-AUC: {roc_auc:.2f}")
+    print("-"*60)
 
 '''ANNOVA TEST'''
 fval, pval = f_classif(X,y)
@@ -72,6 +154,9 @@ ressAnova = pd.DataFrame({'Feature': X.columns, 'F-Value': fval, 'P-Value': pval
 print(ressAnova.sort_values(by='P-Value'))
 importantFeatures = ressAnova[ressAnova['P-Value'] <0.05]['Feature']
 df_filter = df[importantFeatures]
+
+print(df_filter)
+
 
 '''EXPLANATION: 
         -F-Value is an statistical measure  to compare the variability between groups
@@ -95,6 +180,7 @@ X_new = fs.fit(X,y)
 
 
 
+<<<<<<< HEAD
 >>>>>>> 42401c4 (...d.ad.)
 '''
 print(y.value_counts())
@@ -283,6 +369,8 @@ print(df_filter)
 
 
 
+=======
+>>>>>>> a1bfc70 (LA LLORONA 1)
 
 
 =======
