@@ -66,5 +66,5 @@ print(nComponents)
 
 scaler = StandardScaler()
 standData = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
-pca = PCA(n_components= 6)
+pca = PCA(n_components= 0.95)
 pcaData = pca.fit_transform(standData)
