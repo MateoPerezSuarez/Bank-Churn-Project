@@ -1,2 +1,0 @@
-'analisisHyper' analiza los hiperparametros para ver cuales van mejor
-'randomforestpostanalisis' usa esolos mejores valores
