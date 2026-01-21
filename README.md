@@ -1,21 +1,144 @@
-The bank customer churn dataset is a CSV file which contains information about a study related to customer churn in a banking institution. The information is divided into 13 different variables, organized  in 13 columns, being the first one the number of rows. 
+# 🏦 Bank Customer Churn Prediction
 
-The attributes analyzed by this study is splitted into the different columns, which are:
+A *Machine Learning* project focused on **predicting customer churn** in a banking institution, using exploratory data analysis, feature engineering, classification models, regression, clustering, and model interpretability techniques.
 
-QUANTITATIVE VARIABLES: 
-Customer identification: a unique id for each customer.
-Age: Customer’s age.
-Credit Score: A value between 300 and 850 which expresses the level of probability of a customer to pay off the debt to the bank.
-Tenure: Number of years a customer has been a client of the bank.
-Account Balance: Customer account balance.
-Estimated yearly salary: An estimation of the customers salary.
-QUALITATIVE VARIABLES
-Surname: Surname of the customer.
-Geography: Country where the customer lives.
-BOOLEAN VARIABLES (1 for Yes, 0 for No):
-HasCrCard: If customer has or not a Credit Card
-IsActiveMember: If the customer is an active member or not 
-Exited: If the customer has exited the bank. 
-Gender: If the customer is male or female.
+---
 
-The 	primary task that we are going to be intending to solve is to apply what we are going to be learning during the course such as: machine learning techniques, training processes,...In order to build and train a model capable of learning and predicting when a customer is more likely to exit the banking platform.
+## 👥 Authors
+- Mateo Pérez  
+- Iñigo Peña  
+- Gotzon Viteri  
+- Josu Viteri  
+
+---
+
+## 🎯 Project Objective
+
+The main goal of this project is to **predict which customers are most likely to leave the bank (churn)** by analyzing their behavior and financial characteristics.  
+This enables banks to anticipate customer attrition and design more effective retention strategies.
+
+Additionally, the project places strong emphasis on:
+- Model interpretability  
+- Critical data analysis  
+- Comparison of different *Machine Learning* approaches  
+
+---
+
+## 📊 Dataset
+
+- **Source**: Kaggle – Bank Customer Churn Dataset  
+- **Records**: 10,000 customers  
+- **Features**: 18 (numerical, categorical, and boolean)
+
+### Key variables
+- **Numerical**: Age, CreditScore, Balance, Tenure, EstimatedSalary  
+- **Categorical**: Geography, Gender, Card Type  
+- **Boolean**: HasCrCard, IsActiveMember, Exited (target variable)
+
+---
+
+## 🧪 Methodology
+
+### 1️⃣ Exploratory Data Analysis (EDA)
+- Distribution analysis  
+- Class imbalance detection  
+- Correlation analysis  
+- Advanced visualizations (heatmaps, KDEs, pairplots)
+
+**Key findings**:
+- Strong class imbalance in the `Exited` variable  
+- Very high correlation between `Complain` and `Exited`  
+- Non-active customers and customers with multiple products show higher churn rates  
+
+---
+
+### 2️⃣ Feature Engineering
+- Removal of irrelevant identifiers  
+- Age discretization  
+- Binarization of the number of products  
+- One-Hot Encoding  
+- Feature scaling  
+- Dimensionality reduction using PCA  
+
+---
+
+### 3️⃣ Classification Models
+The following models were trained and compared:
+- Logistic Regression  
+- Decision Tree (CART)  
+- Random Forest  
+- Support Vector Machines (SVC)  
+- Naive Bayes  
+
+**Best-performing model**: 🌲 **Random Forest Classifier**
+
+**Key metrics**:
+- Accuracy: ~76%  
+- Recall: ~70%  
+- ROC-AUC: ~82%  
+
+Recall was prioritized due to its importance in identifying customers at risk of churn.
+
+---
+
+### 4️⃣ Regression
+- Target variable: `Balance`  
+- Models tested: Linear Regression, GLM, SVR, Random Forest Regressor, among others  
+
+⚠️ Results were limited due to:
+- Extreme outliers  
+- Dataset not being well-suited for regression tasks  
+
+---
+
+### 5️⃣ Clustering
+- Hyperparameter tuning  
+- Model comparison  
+- Cluster visualization and interpretation  
+- Identification of customer subgroups  
+
+---
+
+### 6️⃣ Interpretability
+- Feature importance analysis  
+- Partial Dependence Plots (PDP)  
+- ALE plots  
+- SHAP values (executed in Google Colab due to compatibility issues)  
+
+---
+
+## 🛠️ Technologies Used
+
+- **Language**: Python  
+- **Libraries**:
+  - pandas, numpy  
+  - matplotlib, seaborn, plotly  
+  - scikit-learn  
+  - optuna  
+  - shap, alibi (Google Colab)  
+
+
+---
+
+## 📌 Conclusions
+
+- **Class imbalance** and **dataset limitations** negatively affect model performance.  
+- Random Forest provides the best trade-off between evaluation metrics.  
+- Model interpretability is essential to deliver real business value.  
+- A richer and more balanced dataset could significantly improve results.  
+
+---
+
+## 🚀 Future Improvements
+- Oversampling techniques (e.g., SMOTE)  
+- Deep Learning approaches  
+- Additional behavioral features  
+- More extensive hyperparameter tuning  
+
+---
+
+## 📄 License
+Academic project developed for educational purposes.
+
+
+
